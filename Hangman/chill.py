@@ -4,7 +4,7 @@ from settings_page import SettingsPage
 
 
 class Chill(SettingsPage):
-    def __init__(self, game): 
+    def __init__(self, game, mode): 
         super().__init__(game)
         self.game = game
         self.center = (self.game.screen_width // 2, self.game.screen_height // 2)

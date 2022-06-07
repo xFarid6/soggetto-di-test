@@ -149,11 +149,19 @@ class Hangman:
                     exit()
                 if event.key == pygame.K_b:
                     self.b = True
+            
+            if event.type == pygame.KEYUP:
+                if event.key == pygame.K_b:
+                    self.b = False
 
             if event.type == pygame.MOUSEBUTTONDOWN:
-                print(event.button, f'({self.mx=}, {self.my=})')
+                # print(event.button, f'({self.mx=}, {self.my=})')
                 if event.button == 1:
                     self.b1_down = True
+            if event.type == pygame.MOUSEBUTTONUP:
+                if event.button == 1:
+                    # self.b1_down = False
+                    pass
 
 
     def run(self) -> None:

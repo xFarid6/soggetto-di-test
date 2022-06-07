@@ -10,6 +10,7 @@ from pygame.locals import *
 from typing import List, Any, Dict
 
 from toggle_button import ToggleButton
+from drop_list import DropList
 
 
 class SettingsPage:
@@ -87,26 +88,43 @@ class SettingsPage:
 
         # drop_lists
         self.drop_lists: Dict[str, List[str]] = {
-            'color_text': [self.text_color, self.colors],
-            'color_background': [self.background_color, self.colors],
-            'color_button': [self.button_color, self.colors],
-            'font': [self.current_font, self.fonts],
-            'chill_mode': [self.chill_mode, self.chill_mode_options]
+            'color_text': [self.text_color, DropList(x=self.game.screen_width - 250, y=80+80*4, options=list(self.colors.keys()), size=30)],
+            'color_background': [self.background_color, DropList(x=self.game.screen_width - 250, y=80+80*5, options=list(self.colors.keys()), size=30)],
+            'color_button': [self.button_color, DropList(x=self.game.screen_width - 250, y=80+80*6, options=list(self.colors.keys()), size=30)],
+            'font': [self.current_font, DropList(x=self.game.screen_width - 250, y=80+80*7, options=self.fonts, size=30)],
+            'chill_mode': [self.chill_mode, DropList(x=self.game.screen_width - 250, y=80+80*8, options=self.chill_mode_options, size=30)]
         }
+        self.render_order = ['color_text', 'color_background', 'color_button', 'font', 'chill_mode']
         
     
     def update(self, mx, my):
+        # track mouse click
         if self.game.b:
             self.game.state = 'start'
             self.game.b = False
 
+        # update toggle buttons
         for key, btn in self.toggle_btns.items():
             state, button = btn
             if button.is_clicked(mx, my) and self.game.b1_down:
                 button.state = not button.state
                 self.toggle_btns[key][0] = not self.toggle_btns[key][0]
-                print(key, state, button.state)
+                # print(key, state, button.state)
                 self.game.b1_down = False
+
+        # update drop_lists
+        for key, drop_list in self.drop_lists.items():
+            var, droplist = drop_list
+            droplist.update(mx, my)
+
+            if droplist.on_hover(mx, my) and self.game.b1_down:
+                droplist.on_click(mx, my)
+                self.render_order.insert(-1, self.render_order.pop(self.render_order.index(key)))
+            
+            if not droplist.on_hover(mx, my):
+                droplist.restore()
+                # TODO: here should be "self.game.b1_down = False" 
+                # but the other droplist would set it to false to stopping the unfnfolding of the current droplist
 
 
     def draw(self):
@@ -124,6 +142,6 @@ class SettingsPage:
         for key, btn in self.toggle_btns.items():
             state, button = btn
             button.draw()
-
-        for key, value in self.drop_lists.items():
-            pass
+    
+        for key in self.render_order:
+            self.drop_lists[key][1].draw()
