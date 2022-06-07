@@ -73,6 +73,29 @@ class StartScreen(SettingsPage):
         pygame.draw.rect(self.game.window, self.colors['white'], 
             (self.game.screen_width // 2 - 100, self.game.screen_height // 10 + 60, 
             200, 200), 5, 10)
+        # head
+        pygame.draw.circle(self.game.window, self.colors['white'],
+            (self.game.screen_width // 2, self.game.screen_height // 10 + 100), 25, 2)
+        # body
+        pygame.draw.line(self.game.window, self.colors['white'],
+            (self.game.screen_width // 2, self.game.screen_height // 10 + 125),
+            (self.game.screen_width // 2, self.game.screen_height // 10 + 200), 2)
+        # left arm
+        pygame.draw.line(self.game.window, self.colors['white'],
+            (self.game.screen_width // 2, self.game.screen_height // 10 + 150),
+            (self.game.screen_width // 2 - 50, self.game.screen_height // 10 + 180), 2)
+        # right arm
+        pygame.draw.line(self.game.window, self.colors['white'],
+            (self.game.screen_width // 2, self.game.screen_height // 10 + 150),
+            (self.game.screen_width // 2 + 50, self.game.screen_height // 10 + 180), 2)
+        # left leg
+        pygame.draw.line(self.game.window, self.colors['white'],
+            (self.game.screen_width // 2, self.game.screen_height // 10 + 200),
+            (self.game.screen_width // 2 - 50, self.game.screen_height // 10 + 250), 2)
+        # right leg
+        pygame.draw.line(self.game.window, self.colors['white'],
+            (self.game.screen_width // 2, self.game.screen_height // 10 + 200),
+            (self.game.screen_width // 2 + 50, self.game.screen_height // 10 + 250), 2)
 
         # record, TODO: maybe add a scores page later
         self.game.draw_text(self.game.window,
