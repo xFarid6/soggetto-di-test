@@ -24,7 +24,7 @@ class HowToPlay(SettingsPage):
         6. You can change the settings at any time by pressing the settings button.
         '''
 
-        self.back_button = Button(x=60, y=60, text='Back', color=self.colors['dark_emerald'], size=20)
+        self.back_button = Button(x=60, y=60, text='Back', color=self.colors['dark_emerald'], size=50, game=self.game)
 
 
     def update(self, mx, my):

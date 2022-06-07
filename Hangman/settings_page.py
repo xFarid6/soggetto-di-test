@@ -51,6 +51,9 @@ class SettingsPage:
             'dark_lime': (64, 128, 0),
             'dark_violet': (64, 0, 255),
         }
+        self.text_color = self.colors['white']
+        self.background_color = self.colors['default grey']
+        self.button_color = self.colors['dark_orange']
 
         # fonts
         self.fonts: List[str] = pygame.font.get_fonts()
