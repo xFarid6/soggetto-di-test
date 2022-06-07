@@ -8,6 +8,7 @@ from game_screen import GameScreen
 from settings_page import SettingsPage
 from how_to_play import HowToPlay
 from start_screen import StartScreen
+from chill import Chill
 
 
 '''
@@ -56,7 +57,8 @@ class Hangman:
             'start': StartScreen(self),
             'game': GameScreen(self),
             'settings': SettingsPage(self),
-            'how_to_play': HowToPlay(self)
+            'how_to_play': HowToPlay(self),
+            'chill': Chill(self),
         }
 
     # load the game variables
@@ -72,6 +74,9 @@ class Hangman:
 
     # mouse
         self.b1_down: bool = False
+    
+    # keys
+        self.b = False
 
 
     def button(original_draw):
@@ -106,7 +111,7 @@ class Hangman:
 
         window.blit(text, text_rect)
 
-    def draw_text(self, surf, x, y, text, color, size=30, font='arial', center=True, aa=True, shadow=True) -> None:
+    def draw_text(self, surf, x, y, text, color, size=30, font='arial', center=True, aa=True) -> None:
         font = pygame.font.SysFont(font, size)
         text = font.render(text, aa, color)
 
@@ -142,6 +147,8 @@ class Hangman:
                 if event.key == pygame.K_ESCAPE:
                     pygame.quit()
                     exit()
+                if event.key == pygame.K_b:
+                    self.b = True
 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 print(event.button, f'({self.mx=}, {self.my=})')

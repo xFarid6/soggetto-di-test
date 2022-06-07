@@ -37,6 +37,8 @@ class StartScreen(SettingsPage):
                             text='How to play', color='red', size=40, game=self.game),
             'quit': Button(x=self.game.screen_width // 2, y=self.game.screen_height // 10 + 500,
                             text='Quit', color='red', size=40, game=self.game),
+            'chill': Button(x=self.game.screen_width // 2, y=self.game.screen_height // 10 + 600,
+                            text='Chill', color='red', size=40, game=self.game),
         }
 
     
@@ -52,6 +54,8 @@ class StartScreen(SettingsPage):
                 elif key == 'quit':
                     pygame.quit()
                     exit()
+                elif key == 'chill':
+                    self.game.state = 'chill'
 
                 self.game.b1_down = False
                 break
