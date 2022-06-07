@@ -18,6 +18,7 @@ class StartScreen(SettingsPage):
     def __init__(self, game):
         super().__init__(game)
         self.game: Hangman = game
+        self.settings = SettingsPage(self.game)
 
         # boxes
         self.boxes: Dict[str, pygame.Rect] = {
@@ -30,15 +31,15 @@ class StartScreen(SettingsPage):
         # buttons
         self.buttons: Dict[str, Button] = {
             'game': Button(x=self.game.screen_width // 2, y=self.game.screen_height // 10 + 350,
-                            text='Start', color='red', size=40, game=self.game),
+                            text='Start', color=self.settings.colors['dark_orange'], size=40, game=self.game),
             'settings': Button(x=self.game.screen_width // 2, y=self.game.screen_height // 10 + 400,
-                            text='Settings', color='red', size=40, game=self.game),
+                            text='Settings', color=self.settings.colors['dark_orange'], size=40, game=self.game),
             'how_to_play': Button(x=self.game.screen_width // 2, y=self.game.screen_height // 10 + 450,
-                            text='How to play', color='red', size=40, game=self.game),
+                            text='How to play', color=self.settings.colors['dark_orange'], size=40, game=self.game),
             'quit': Button(x=self.game.screen_width // 2, y=self.game.screen_height // 10 + 500,
-                            text='Quit', color='red', size=40, game=self.game),
+                            text='Quit', color=self.settings.colors['dark_orange'], size=40, game=self.game),
             'chill': Button(x=self.game.screen_width // 2, y=self.game.screen_height // 10 + 600,
-                            text='Chill', color='red', size=40, game=self.game),
+                            text='Chill', color=self.settings.colors['dark_orange'], size=40, game=self.game),
         }
 
     

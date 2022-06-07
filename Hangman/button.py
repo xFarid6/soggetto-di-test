@@ -45,11 +45,11 @@ class Button:
         # button
         if self.center:
             self.button_surf.center = (self.x, self.y)
-            pygame.draw.rect(window, self.settings.button_color, self.button_surf, width=0,
+            pygame.draw.rect(window, self.settings.colors['dark_teal'], self.button_surf, width=0,
                 border_top_left_radius=8, border_top_right_radius=8, 
                 border_bottom_left_radius=8, border_bottom_right_radius=0)
         else:
-            pygame.draw.rect(window, self.settings.button_color, self.button_surf, width=0, 
+            pygame.draw.rect(window, self.settings.colors['dark_teal'], self.button_surf, width=0, 
                 border_top_left_radius=8, border_top_right_radius=8, 
                 border_bottom_left_radius=8, border_bottom_right_radius=0)
 

@@ -44,6 +44,9 @@ class Hangman:
 
     # load the words
         self.words: List[str] = []
+        with open(self.path + r'\paroleitaliane\1000_parole_italiane_comuni.txt', 'r') as f:
+            for line in f:
+                self.words.append(line.strip())
 
     # load the game objects
         self.start_screen: StartScreen = StartScreen(self)
@@ -61,22 +64,15 @@ class Hangman:
             'chill': Chill(self, mode=self.settings_page.chill_mode),
         }
 
-    # load the game variables
         self.record: int = 0
-        self.score: int = 0
-        self.time: int = 0
-        self.word: str = ''
-        self.letters: List[str] = []
-        self.hangman: int = 0
-        self.guessed: List[str] = []
-        self.correct: List[str] = []
-        self.incorrect: List[str] = []
 
     # mouse
         self.b1_down: bool = False
     
     # keys
         self.b = False
+        self.r = False
+        self.q = False
 
 
     def button(original_draw):
@@ -149,10 +145,17 @@ class Hangman:
                     exit()
                 if event.key == pygame.K_b:
                     self.b = True
+                if event.key == pygame.K_q:
+                    pygame.quit()
+                    exit()
+                if event.key == pygame.K_r:
+                    self.r = True
             
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_b:
                     self.b = False
+                if event.key == pygame.K_r:
+                    self.r = False
 
             if event.type == pygame.MOUSEBUTTONDOWN:
                 # print(event.button, f'({self.mx=}, {self.my=})')
