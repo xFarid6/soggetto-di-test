@@ -10,9 +10,17 @@
 import pygame
 from pygame.locals import *
 from settings_page import SettingsPage
-
+from button import Button
 
 class GameScreen(SettingsPage):
     def __init__(self, game):
         super().__init__(game)
         self.game = game
+
+    
+    def update(self, mx, my): 
+        pass
+
+
+    def draw(self):
+        pass

@@ -58,3 +58,11 @@ class SettingsPage:
         # fonts
         self.fonts: List[str] = pygame.font.get_fonts()
         self.current_font: str = self.fonts[0]
+
+    
+    def update(self, mx, my):
+        pass
+
+
+    def draw(self):
+        pass

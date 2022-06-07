@@ -11,6 +11,7 @@
 import pygame
 from pygame.locals import *
 from settings_page import SettingsPage
+from button import Button
 
 
 class StartScreen(SettingsPage):
@@ -26,22 +27,37 @@ class StartScreen(SettingsPage):
             'quit': pygame.Rect(self.game.screen_width // 2 - 50, self.game.screen_height // 10 + 500, 200, 50),
         }
 
+        # buttons
+        self.buttons: Dict[str, Button] = {
+            'game': Button(x=self.game.screen_width // 2, y=self.game.screen_height // 10 + 350,
+                            text='Start', color='red', size=40, game=self.game),
+            'settings': Button(x=self.game.screen_width // 2, y=self.game.screen_height // 10 + 400,
+                            text='Settings', color='red', size=40, game=self.game),
+            'how_to_play': Button(x=self.game.screen_width // 2, y=self.game.screen_height // 10 + 450,
+                            text='How to play', color='red', size=40, game=self.game),
+            'quit': Button(x=self.game.screen_width // 2, y=self.game.screen_height // 10 + 500,
+                            text='Quit', color='red', size=40, game=self.game),
+        }
+
     
     def update(self, mx, my):
-        for key, box in self.boxes.items():
-            if box.collidepoint(mx, my):
-                print("Collision with: " + key)
-                if self.game.b1_down:
-                    self.game.state = key
-                    self.game.b1_down = False
-                    break
+        for key, button in self.buttons.items():
+            if button.is_clicked(mx, my):
+                if key == 'game':
+                    self.game.state = 'game'
+                elif key == 'settings':
+                    self.game.state = 'settings'
+                elif key == 'how_to_play':
+                    self.game.state = 'how_to_play'
+                elif key == 'quit':
+                    pygame.quit()
+                    exit()
 
-
+                self.game.b1_down = False
+                break
+            
 
     def draw(self):
-
-        self.game.button_text(window=self.game.window,
-                              x=10, y=10, text='Start', color='red', size=20)
 
         # title+
         self.game.draw_text(self.game.window,
@@ -53,35 +69,13 @@ class StartScreen(SettingsPage):
             (self.game.screen_width // 2 - 100, self.game.screen_height // 10 + 60, 
             200, 200), 5, 10)
 
-        # record
+        # record, TODO: maybe add a scores page later
         self.game.draw_text(self.game.window,
             self.game.screen_width // 2, self.game.screen_height // 10 + 300,
             'Record: ' + str(self.game.record), self.colors['white'], size=30,
             font=self.current_font)
 
-        # tap to start
-        self.game.draw_text(self.game.window,
-            self.game.screen_width // 2, self.game.screen_height // 10 + 350,
-            'Tap to start', self.colors['white'], size=30,
-            font=self.current_font)
-
-        # settings
-        self.game.draw_text(self.game.window,
-            self.game.screen_width // 2, self.game.screen_height // 10 + 400,
-            'Settings', self.colors['white'], size=30,
-            font=self.current_font)
-
-        # how to play
-        self.game.draw_text(self.game.window,
-            self.game.screen_width // 2, self.game.screen_height // 10 + 450,
-            'How to play', self.colors['white'], size=30,
-            font=self.current_font)
-
-        # quit
-        self.game.draw_text(self.game.window,
-            self.game.screen_width // 2, self.game.screen_height // 10 + 500,
-            'Quit', self.colors['white'], size=30,
-            font=self.current_font)
-
-        for box in self.boxes.values():
-            pygame.draw.rect(self.game.window, self.colors['white'], box, 5)
+        # buttons
+        for key, button in self.buttons.items():
+            button.draw()
+        
