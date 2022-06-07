@@ -8,6 +8,7 @@ class Chill(SettingsPage):
         super().__init__(game)
         self.game = game
         self.center = (self.game.screen_width // 2, self.game.screen_height // 2)
+        self.mode = mode
 
     def update(self, mx, my): 
         if self.game.b:

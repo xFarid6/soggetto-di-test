@@ -62,7 +62,9 @@ class SettingsPage:
         self.fonts: List[str] = pygame.font.get_fonts()
         self.current_font: str = self.fonts[0]
 
-        # buttons
+        # chill mode
+        self.chill_mode: str = 'one'
+        self.chill_mode_options: List[str] = ['one', 'two', 'three']
 
         # all settings
         self.all_settings: Dict[str, str] = {
@@ -77,15 +79,20 @@ class SettingsPage:
         }
 
         # buttons
-        self.toggle_button_dict: Dict[str, bool] = {
-            'fullscreen': self.fullscreen,
-            'sound': self.sound,
-            'exclude': self.exclude
+        self.toggle_btns: Dict[str, bool] = {
+            'fullscreen': [self.fullscreen, ToggleButton(x=self.game.screen_width - 100, y=80+80, state=self.fullscreen, size=30)],
+            'sound': [self.sound, ToggleButton(x=self.game.screen_width - 100, y=80+80*2, state=self.sound, size=30)],
+            'exclude': [self.exclude, ToggleButton(x=self.game.screen_width - 100, y=80+80*3, state=self.exclude, size=30)]
         }
 
-        self.toggle_btns: List[ToggleButton] = [
-            ToggleButton(x=self.game.screen_width - 100, y=80+80*(c+1), state=self.toggle_button_dict.get(key), size=30)
-            for c, key in enumerate(self.toggle_button_dict.keys())]
+        # drop_lists
+        self.drop_lists: Dict[str, List[str]] = {
+            'color_text': [self.text_color, self.colors],
+            'color_background': [self.background_color, self.colors],
+            'color_button': [self.button_color, self.colors],
+            'font': [self.current_font, self.fonts],
+            'chill_mode': [self.chill_mode, self.chill_mode_options]
+        }
         
     
     def update(self, mx, my):
@@ -93,11 +100,13 @@ class SettingsPage:
             self.game.state = 'start'
             self.game.b = False
 
-        for btn in self.toggle_btns:
-            if btn.is_clicked(mx, my) and self.game.b1_down:
-                btn.state = not btn.state
+        for key, btn in self.toggle_btns.items():
+            state, button = btn
+            if button.is_clicked(mx, my) and self.game.b1_down:
+                button.state = not button.state
+                self.toggle_btns[key][0] = not self.toggle_btns[key][0]
+                print(key, state, button.state)
                 self.game.b1_down = False
-                # self.toggle_button_dict[btn.text.lower()] = btn.state
 
 
     def draw(self):
@@ -112,5 +121,9 @@ class SettingsPage:
                 x=15, y=80+80*c, text=' '.join(key.split('_')).capitalize(), 
                 color=self.text_color, size=30, center=False)
 
-        for btn in self.toggle_btns:
-            btn.draw()
+        for key, btn in self.toggle_btns.items():
+            state, button = btn
+            button.draw()
+
+        for key, value in self.drop_lists.items():
+            pass

@@ -58,7 +58,7 @@ class Hangman:
             'game': GameScreen(self),
             'settings': SettingsPage(self),
             'how_to_play': HowToPlay(self),
-            'chill': Chill(self),
+            'chill': Chill(self, mode=self.settings_page.chill_mode),
         }
 
     # load the game variables
@@ -143,7 +143,7 @@ class Hangman:
                 pygame.quit()
                 exit()
             if event.type == pygame.KEYDOWN:
-                print(pygame.key.name(event.key))
+                # print(pygame.key.name(event.key))
                 if event.key == pygame.K_ESCAPE:
                     pygame.quit()
                     exit()
