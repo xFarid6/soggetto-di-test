@@ -3,6 +3,7 @@
 
 import timeit
 
+
 def words_distance_levenshtein(words1, words2):
     """
     words1 e words2 sono due liste di parole
@@ -18,6 +19,7 @@ def words_distance_levenshtein(words1, words2):
         return min(words_distance_levenshtein(words1, words2[1:]),
                    words_distance_levenshtein(words1[1:], words2),
                    words_distance_levenshtein(words1[1:], words2[1:])) + 1
+
 
 def Distance(str1,str2):
 
@@ -56,9 +58,9 @@ def Distance2(str1, str2):
     if len(str2) == 0:
         return len(str1)
 
-        if str1[-1] != str2[-1]:
-            return min(1 + Distance2(str1[:-1], str2), 1 + Distance2(str1, str2[:-1]),
-                    1 + Distance2(str1[:-1], str2[:-1]))
+    if str1[-1] != str2[-1]:
+        return min(1 + Distance2(str1[:-1], str2), 1 + Distance2(str1, str2[:-1]),
+                1 + Distance2(str1[:-1], str2[:-1]))
     else:
         return Distance2(str1[:-1], str2[:-1])
 
@@ -88,15 +90,28 @@ def Distance3(str1,str2):
 
 
 # time the three functions using the timeit module and print the results
+
+print("Calculating Distance")
+
 print(timeit.timeit("Distance('cristina patatina la vicini rumina in cucina','maria castro castoro rivoltoso')", 
                     setup="from __main__ import Distance", 
-                    number=100_000)
+                    number=1)
                     )
+
+print("Calculating Distance2")
 print(timeit.timeit("Distance2('cristina patatina la vicini rumina in cucina','maria castro castoro rivoltoso')", 
                     setup="from __main__ import Distance2", 
-                    number=100_000)
+                    number=1)
                     )
+
+print("Calculating Distance3")
 print(timeit.timeit("Distance3('cristina patatina la vicini rumina in cucina','maria castro castoro rivoltoso')", 
                     setup="from __main__ import Distance3", 
-                    number=100_000)
+                    number=1)
+                    )
+
+print("Calculating words_distance_levenshtein")
+print(timeit.timeit("words_distance_levenshtein('cristina patatina la vicini rumina in cucina','maria castro castoro rivoltoso')", 
+                    setup="from __main__ import words_distance_levenshtein", 
+                    number=1)
                     )
